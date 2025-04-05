@@ -22,11 +22,11 @@ public class SecurityConfiguration {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http.csrf(AbstractHttpConfigurer::disable);
 		http.headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable));
-		http.authorizeHttpRequests(request -> request.requestMatchers("/login/**", "/h2-console/**").permitAll()
-				.requestMatchers("/bidding/add").hasAuthority("BIDDER").requestMatchers("/bidding/update/**")
-				.hasAuthority("APPROVER").requestMatchers("/bidding/delete/**").hasAnyAuthority("BIDDER", "APPROVER")
-				.requestMatchers("/bidding/list/**").hasAnyAuthority("BIDDER", "APPROVER")
-				.requestMatchers("/bidding/listAll/**").hasAnyAuthority("BIDDER", "APPROVER"))
+		http.authorizeHttpRequests(request -> request.requestMatchers("/authentication/**", "/h2-console/**").permitAll())
+//				.requestMatchers("/bidding/add").hasAuthority("BIDDER").requestMatchers("/bidding/update/**")
+//				.hasAuthority("APPROVER").requestMatchers("/bidding/delete/**").hasAnyAuthority("BIDDER", "APPROVER")
+//				.requestMatchers("/bidding/list/**").hasAnyAuthority("BIDDER", "APPROVER")
+//				.requestMatchers("/authentication/listAll/**").hasAnyAuthority("BIDDER", "APPROVER"))
 				.addFilterBefore(new AuthenticatonFilter(), UsernamePasswordAuthenticationFilter.class)
 				.sessionManagement(
 						sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
