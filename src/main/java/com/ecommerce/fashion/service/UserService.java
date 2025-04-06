@@ -1,5 +1,6 @@
 package com.ecommerce.fashion.service;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import org.apache.commons.lang3.StringUtils;
@@ -22,6 +23,7 @@ public class UserService implements IUserService {
 
 	@Override
 	public UserModel signUpUser(UserModel userRequest) {
+		userRequest.setCreatedAt(LocalDateTime.now());
 		UserModel userModel = userRepository.save(userRequest);
 		return userModel;
 	}
@@ -33,6 +35,7 @@ public class UserService implements IUserService {
 			String securityQuestion = user.get().getSecurityQuestion();
 			if (StringUtils.equalsIgnoreCase(userRequest.getSecurityQuestion(), securityQuestion)) {
 				user.get().setMatchSecurityFlag(true);
+				user.get().setUpdatedAt(LocalDateTime.now());
 			}
 			UserModel userModel = userRepository.save(user.get());
 			return ResponseEntity.status(HttpStatus.OK).body(userModel.getMatchSecurityFlag());
@@ -45,6 +48,7 @@ public class UserService implements IUserService {
 		Optional<UserModel> user = userRepository.findByEmail(authenticationModel.getEmail());
 		if (user.isPresent()) {
 			user.get().setPassword(authenticationModel.getPassword());
+			user.get().setUpdatedAt(LocalDateTime.now());
 			userRepository.save(user.get());
 			return ResponseEntity.status(HttpStatus.OK).body(FashionConstant.PASSWORD_UPDATED);
 		}

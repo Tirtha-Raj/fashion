@@ -22,7 +22,7 @@ import com.ecommerce.fashion.security.JWTUtil;
 
 @RestController
 @RequestMapping("/authentication")
-public class LoginController {
+public class AuthenticationController {
 
 	@Autowired
 	private AuthenticationProvider authenticationManager;

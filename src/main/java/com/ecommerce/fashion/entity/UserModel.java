@@ -1,6 +1,6 @@
 package com.ecommerce.fashion.entity;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -34,8 +34,8 @@ public class UserModel {
 	private String securityQuestion;
 	private String phoneNumber;
 	private String country;
-	private Date createdAt;
-	private Date updatedAt;
+	private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 	private String createdBy;
 	private String updatedBy;
 	private Boolean isActive;
